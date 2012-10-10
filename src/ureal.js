@@ -8,7 +8,8 @@ void function(root){
             parseProtocol,
             parseDomainPart,
             parsePathPart,
-            parseParamsPart
+            parseParamsPart,
+            parseHashPart
         )({ data: {}, rest: url }).data
     }
 
@@ -67,16 +68,19 @@ void function(root){
             var pathPart = between(o.rest, '/', '?')
             o.data.path = pathPart.split('/').filter(function(v){ return v !== '' })
         }
-        o.rest = from(o.rest, '?')
+        
+        if ( contains(o.rest, '?') ) o.rest = from(o.rest, '?')
+        else                         o.rest = from(o.rest, '#')
+
         return o
     }
     
     var parseParamsPart = function(o){
         var parts = []
-      
+        
         if ( ! empty(after(o.rest, '?')) ) {
-            
-            var str = after(o.rest, '?')
+
+            var str = between(o.rest, '?', '#')
             if ( contains(str, '&') ) parts = str.split('&')
             else                      parts = [str]
 
@@ -85,7 +89,16 @@ void function(root){
                 return data
             }, {})
         }
+        
+        o.rest = from(o.rest, '#')
+        return o
+    }
 
+    var parseHashPart = function(o){
+        if ( contains(o.rest, '#') ) {
+            o.data.hash = after(o.rest, '#')
+            o.rest = ''
+        }
         return o
     }
 

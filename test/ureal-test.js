@@ -98,6 +98,15 @@ test('with querystring - http://google.com/?search=my-term&other-search=my-other
     a.equal(o.params['other-search'], 'my-other-term')
 })
 
+test('with hash - http://google.com/#sdfds', function(){
+
+    var o = ureal.parse('http://google.com/#sdfds')
+
+    a.equal(o.domain, 'google.com')
+    a.equal(o.protocol, 'http')
+    a.equal(o.hash, 'sdfds')
+})
+
 
 suite('parse & stringify symetry')
 
@@ -105,14 +114,13 @@ test('parse & stringify symetry', function(){
     var urls = [
         'http://google.com',
         'admin:pass@www.foobar.com/pig/nose?are=the&base=',
-        'https://www.far.bo:209232/asd'
+        'https://www.far.bo:209232/asd',
+        'http://twitter.com/#!user/34'
     ]
     
     var symetric = function(url){ 
         var o    = ureal.parse(url),
             url2 = ureal.stringify(o)
-        
-        console.log(o, url2)
         a.equal(url, url2) 
     }
 
