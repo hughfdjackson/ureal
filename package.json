@@ -1,0 +1,9 @@
+{
+    "name": "ureal",
+    "description": "urls are serialised data structures; this library lets you treat them that way",
+    "version": "0.0.1",
+    "main": "src/ureal.js",
+    "scripts": {
+        "test": "mocha --ui qunit test/*"
+    }
+}
