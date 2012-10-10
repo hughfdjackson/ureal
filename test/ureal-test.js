@@ -34,7 +34,7 @@ test('with user and password - http://auth:pass@google.com', function(){
     a.equal(url, 'http://auth:pass@google.com')
 })
 
-test('with querystring - http://google.com?search=my-term&other-search=my-other-term', function(){
+test('with querystring - http://google.com/?search=my-term&other-search=my-other-term', function(){
 
     var url = ureal.stringify({
         domain: 'google.com',
@@ -44,7 +44,7 @@ test('with querystring - http://google.com?search=my-term&other-search=my-other-
         }
     })
 
-    a.equal(url, 'http://google.com?search=my-term&other-search=my-other-term')
+    a.equal(url, 'http://google.com/?search=my-term&other-search=my-other-term')
 })
 
 
@@ -87,9 +87,9 @@ test('with path - http://google.com/search/term', function(){
     a.equal(o.path[1], 'term')
 })
 
-test('with querystring - http://google.com?search=my-term&other-search=my-other-term', function(){
+test('with querystring - http://google.com/?search=my-term&other-search=my-other-term', function(){
     
-    var o = ureal.parse('http://google.com?search=my-term&other-search=my-other-term')
+    var o = ureal.parse('http://google.com/?search=my-term&other-search=my-other-term')
 
     a.equal(o.domain, 'google.com')
     a.equal(o.protocol, 'http')
