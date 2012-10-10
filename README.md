@@ -41,4 +41,20 @@ Returns:
 
 ```javascript
         'https://user:password@secure.my-site.com/profile?edit=email'
-```g
+```
+
+# Getting
+
+## via npm
+
+```bash
+        npm install ureal
+```
+
+## for browser-based AMD
+
+Download src/ureal.js, and require it as normal.
+
+## for browser-based non-AMD
+
+If `module.exports` or `define` can't be found, ureal will export itself to the global scope (where it can be deleted if necessary).
