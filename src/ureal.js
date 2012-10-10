@@ -63,7 +63,7 @@ void function(root){
     }
 
     var parsePathPart = function(o){
-        if ( contains(o.rest, '/') ) {
+        if ( ! empty(after(o.rest, '/')) ) {
             var pathPart = between(o.rest, '/', '?')
             o.data.path = pathPart.split('/').filter(function(v){ return v !== '' })
         }
@@ -73,8 +73,8 @@ void function(root){
     
     var parseParamsPart = function(o){
         var parts = []
-        
-        if ( contains(o.rest, '?') ) {
+      
+        if ( ! empty(after(o.rest, '?')) ) {
             
             var str = after(o.rest, '?')
             if ( contains(str, '&') ) parts = str.split('&')
@@ -92,11 +92,9 @@ void function(root){
     
     var stringify = function(o){
         
-        var protocol = o.protocol || 'http'        
-
         var url = ''
 
-        if ( protocol )             url += protocol + '://'
+        if ( o.protocol )           url += o.protocol + '://'
         if ( o.user && o.password ) url += o.user + ':' + o.password + '@'
         if ( o.domain )             url += o.domain
         if ( o.port )               url += ':' + o.port.toString()
@@ -145,7 +143,8 @@ void function(root){
         extend = function(t, f){
             for ( var p in f ) t[p] = f[p]
             return t
-        }
+        },
+        empty = function(v){ return v.length == 0 }
 
     // export
     var ureal = {
